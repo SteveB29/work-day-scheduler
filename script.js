@@ -1,3 +1,5 @@
+var savedTasks = {};
+
 var today = moment().format("dddd, MMMM Do");
 $('#currentDay').text(today);
 
@@ -21,8 +23,24 @@ var checkTime = function() {
     }
 };
 
+$(".container").on("click", "button", function() {
+    var clickEl = $(this).parent().children();
+    var textAreaID = clickEl[1].id;
+    var text = $('#'+textAreaID).val().trim();
+    
+    // checks if string is blank and does not add it to the array if it is
+    if (!text) {
+        console.log("blank");
+    }
+    else {
+        var key = textAreaID;
+        savedTasks[key] = text;
+        console.log(savedTasks);
+    }
+    
+});
+
 checkTime();
 setInterval(function() {
     checkTime();
-    console.log("time checked");
 }, 60000);
